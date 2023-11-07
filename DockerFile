@@ -1,27 +1,20 @@
-FROM node:lts
+FROM python:3.11
 
-RUN mkdir -p /usr/src/app && \
-    chown -R node:node /usr/src/app
-WORKDIR /usr/src/app
+WORKDIR /python-microservice
 
-RUN apt-get update && apt-get install -y jq
+COPY requirements.txt .
 
-ARG NODE_ENV
-ENV NODE_ENV $NODE_ENV
+RUN pip install flask
+RUN pip install --no-cache-dir -r requirements.txt
 
-COPY --chown=node:node install/package.json /usr/src/app/package.json
+COPY . .
 
-USER node
 
-RUN npm install && \
-    npm cache clean --force
 
-COPY --chown=node:node . /usr/src/app
+EXPOSE 80
 
-ENV NODE_ENV=production \
-    daemon=false \
-    silent=false
+ENV PORT 80
 
-EXPOSE 4567
+ENV HOSTNAME "0.0.0.0"
 
-CMD  ./create_config.sh -n "${SETUP}" && ./nodebb setup || node ./nodebb build; node ./nodebb start
+CMD ["flask", "run", "--host", "0.0.0.0", "--port", "80"]
