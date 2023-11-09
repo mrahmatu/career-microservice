@@ -7,6 +7,7 @@ WORKDIR /career-microservice
 # Install Flask and other dependencies
 RUN pip install flask
 
+COPY . .
 
 # Make port 80 available to the world outside this container
 EXPOSE 80
@@ -16,7 +17,8 @@ ENV PORT 80
 ENV HOSTNAME "0.0.0.0"
 
 # Define the Flask app's entry point
-CMD ["flask", "run", "--host=0.0.0.0", "--port=80"]
+
+CMD ["flask", "run", "--host", "0.0.0.0", "--port", "80"]
 
 # FROM python:3.11
 
