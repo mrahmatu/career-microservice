@@ -4,8 +4,11 @@ FROM python:3.11
 # Set the working directory to /career-microservice
 WORKDIR /career-microservice
 
-# Install Flask and other dependencies
+COPY requirements.txt .
+
 RUN pip install flask
+RUN pip install --no-cache-dir -r requirements.txt
+
 
 COPY . .
 
