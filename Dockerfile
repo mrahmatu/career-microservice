@@ -1,23 +1,12 @@
 # Use an official Python runtime as a parent image
 FROM python:3.11
-
-# Set the working directory to /career-microservice
-WORKDIR /career-microservice
-
 COPY requirements.txt .
-
 RUN pip install flask
 RUN pip install --no-cache-dir -r requirements.txt
 
 
-COPY . .
-
 # Make port 80 available to the world outside this container
 EXPOSE 80
-
-ENV PORT 80
-
-ENV HOSTNAME "0.0.0.0"
 
 # Define the Flask app's entry point
 
