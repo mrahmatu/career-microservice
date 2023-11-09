@@ -8,6 +8,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Make port 80 available to the world outside this container
 EXPOSE 80
 
+ENV PORT 80
+
+ENV HOSTNAME "0.0.0.0"
+
 # Define the Flask app's entry point
 
 CMD ["flask", "run", "--host", "0.0.0.0", "--port", "80"]
